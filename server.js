@@ -17,6 +17,10 @@ const transporter = nodemailer.createTransport({
     auth: {
         user: process.env.EMAIL_USER || 'kmes.kmkim@gmail.com',
         pass: process.env.EMAIL_PASS || 'your-app-password'
+    },
+    secure: true,
+    tls: {
+        rejectUnauthorized: false
     }
 });
 
@@ -98,7 +102,7 @@ app.post('/api/inquiry', async (req, res) => {
         const mailOptions = {
             from: 'kmes.kmkim@gmail.com',
             to: 'kmes.kmkim@gmail.com',
-            subject: emailBody,
+            subject: emailSubject,
             html: emailBody,
             replyTo: email
         };
