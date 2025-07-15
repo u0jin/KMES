@@ -14,11 +14,19 @@
       "use": "@vercel/static"
     },
     {
+      "src": "api/**/*.js",
+      "use": "@vercel/node"
+    },
+    {
       "src": "server.js",
       "use": "@vercel/node"
     }
   ],
   "routes": [
+    {
+      "src": "/api/inquiry",
+      "dest": "/api/inquiry.js"
+    },
     {
       "src": "/api/(.*)",
       "dest": "/server.js"
@@ -31,10 +39,5 @@
       "src": "/(.*)",
       "dest": "/$1"
     }
-  ],
-  "functions": {
-    "server.js": {
-      "maxDuration": 10
-    }
-  }
+  ]
 } 

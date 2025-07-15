@@ -352,22 +352,61 @@ function handleFormSubmit(formId) {
                 product: formData.get('product') || ''
             };
             
-            // 바로 mailto 링크 사용
-            sendEmailViaMailto(inquiryData);
-            
-            // 폼 초기화
-            this.reset();
-            
-            // 버튼 상태 복원
-            setTimeout(() => {
-                submitButton.textContent = originalText;
-                submitButton.disabled = false;
-            }, 2000);
+            // API 시도 후 실패 시 mailto로 폴백
+            sendEmailWithFallback(inquiryData, submitButton, originalText);
         });
     }
 }
 
-// mailto 링크로 이메일 전송
+// API 시도 후 폴백하는 이메일 전송
+async function sendEmailWithFallback(data, submitButton, originalText) {
+    console.log('이메일 전송 시작:', data);
+    
+    try {
+        // API 시도
+        console.log('API 시도 중...');
+        const response = await fetch('/api/inquiry', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        });
+
+        console.log('API 응답:', response.status);
+
+        if (response.ok) {
+            const result = await response.json();
+            console.log('API 성공:', result);
+            
+            if (result.success) {
+                alert(result.message);
+                const form = submitButton.closest('form');
+                if (form) {
+                    form.reset();
+                }
+                return;
+            }
+        }
+        
+        // API 실패 시 mailto 사용
+        console.log('API 실패, mailto로 폴백');
+        sendEmailViaMailto(data);
+        
+    } catch (error) {
+        console.error('API 오류:', error);
+        // 네트워크 오류 시 mailto 사용
+        sendEmailViaMailto(data);
+    } finally {
+        // 버튼 상태 복원
+        setTimeout(() => {
+            submitButton.textContent = originalText;
+            submitButton.disabled = false;
+        }, 2000);
+    }
+}
+
+// mailto 링크로 이메일 전송 (기본 방식)
 function sendEmailViaMailto(data) {
     // 이메일 제목 구성
     let emailSubject = '한국엠이에스 문의사항';
@@ -397,7 +436,7 @@ function sendEmailViaMailto(data) {
     
     // 성공 메시지 표시
     setTimeout(() => {
-        alert('문의가 성공적으로 전송되었습니다. 빠른 시일 내에 연락드리겠습니다.');
+        alert('문의가 성공적으로 접수되었습니다.\n\n이메일 클라이언트가 열렸습니다. 이메일을 확인하시고 필요시 내용을 수정한 후 발송해주세요.\n\n빠른 시일 내에 연락드리겠습니다.');
     }, 1000);
 }
 
