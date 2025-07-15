@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(express.static('.'));
 
 // 이메일 전송 설정 (환경변수 사용)
-const transporter = nodemailer.createTransporter({
+const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
         user: process.env.EMAIL_USER || 'kmes.kmkim@gmail.com',
