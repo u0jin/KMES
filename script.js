@@ -328,7 +328,7 @@ document.addEventListener('DOMContentLoaded', function() {
 function handleFormSubmit(formId) {
     const form = document.getElementById(formId);
     if (form) {
-        form.addEventListener('submit', function(e) {
+        form.addEventListener('submit', async function(e) {
             e.preventDefault();
             
             // 폼 데이터 수집
@@ -352,19 +352,41 @@ function handleFormSubmit(formId) {
                 product: formData.get('product') || ''
             };
             
-            // 바로 mailto 링크 사용
-            sendEmailViaMailto(inquiryData);
-            
-            // 버튼 상태 복원
-            setTimeout(() => {
+            try {
+                // 서버 API 호출
+                const response = await fetch('/api/inquiry', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(inquiryData)
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    // 성공 메시지 표시
+                    alert(result.message);
+                    this.reset();
+                } else {
+                    // 실패 시 mailto 링크로 폴백
+                    sendEmailViaMailto(inquiryData);
+                }
+                
+            } catch (error) {
+                console.error('API 호출 실패:', error);
+                // 네트워크 오류 시 mailto 링크로 폴백
+                sendEmailViaMailto(inquiryData);
+            } finally {
+                // 버튼 상태 복원
                 submitButton.textContent = originalText;
                 submitButton.disabled = false;
-            }, 2000);
+            }
         });
     }
 }
 
-// mailto 링크로 이메일 전송
+// mailto 링크로 이메일 전송 (폴백용)
 function sendEmailViaMailto(data) {
     // 이메일 제목 구성
     let emailSubject = '한국엠이에스 문의사항';
