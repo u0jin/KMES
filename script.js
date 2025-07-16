@@ -1,5 +1,44 @@
 // 페이지 로드 시 실행
 document.addEventListener('DOMContentLoaded', function() {
+    // 모바일 메뉴 토글 기능
+    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+    const mobileNav = document.getElementById('mobileNav');
+    const mobileClose = document.getElementById('mobileClose');
+    const body = document.body;
+
+    if (mobileMenuToggle && mobileNav) {
+        mobileMenuToggle.addEventListener('click', function() {
+            mobileNav.classList.add('active');
+            mobileMenuToggle.classList.add('active');
+            body.style.overflow = 'hidden';
+        });
+
+        mobileClose.addEventListener('click', function() {
+            mobileNav.classList.remove('active');
+            mobileMenuToggle.classList.remove('active');
+            body.style.overflow = '';
+        });
+
+        // 모바일 메뉴 내 링크 클릭 시 메뉴 닫기
+        const mobileNavLinks = mobileNav.querySelectorAll('a');
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                mobileNav.classList.remove('active');
+                mobileMenuToggle.classList.remove('active');
+                body.style.overflow = '';
+            });
+        });
+
+        // 모바일 메뉴 외부 클릭 시 닫기
+        mobileNav.addEventListener('click', function(e) {
+            if (e.target === mobileNav) {
+                mobileNav.classList.remove('active');
+                mobileMenuToggle.classList.remove('active');
+                body.style.overflow = '';
+            }
+        });
+    }
+
     // 스크롤 애니메이션
     const observerOptions = {
         threshold: 0.1,

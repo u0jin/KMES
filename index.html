@@ -27,12 +27,12 @@
         <div class="header-main">
             <div class="container">
                 <div class="logo">
-                    <h1>한국엠이에스</h1>
+                    <h1><a href="index.html">한국엠이에스</a></h1>
                     <p>KOREA MES CORP.</p>
                 </div>
                 <nav class="main-nav">
                     <ul>
-                        <li><a href="index.html">HOME</a></li>
+                        <li><a href="index.html" class="active">HOME</a></li>
                         <li class="dropdown">
                             <a href="company.html">회사소개</a>
                             <ul class="dropdown-menu">
@@ -56,9 +56,43 @@
                         <li><a href="customer.html#online-inquiry">문의하기</a></li>
                     </ul>
                 </nav>
+                <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
             </div>
         </div>
     </header>
+
+    <!-- 모바일 네비게이션 -->
+    <nav class="mobile-nav" id="mobileNav">
+        <button class="mobile-close" id="mobileClose">&times;</button>
+        <ul>
+            <li><a href="index.html" class="active">HOME</a></li>
+            <li class="dropdown">
+                <a href="company.html">회사소개</a>
+                <ul class="dropdown-menu">
+                    <li><a href="company.html#about">회사개요</a></li>
+                    <li><a href="company.html#history">회사연혁</a></li>
+                    <li><a href="company.html#organization">조직도</a></li>
+                    <li><a href="company.html#location">오시는길</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="products.html">제품소개</a>
+                <ul class="dropdown-menu">
+                    <li><a href="products.html#flow-meters">유량계</a></li>
+                    <li><a href="products.html#electromagnetic">전자기 유량계</a></li>
+                    <li><a href="products.html#ultrasonic">초음파 유량계</a></li>
+                    <li><a href="products.html#turbine">터빈 유량계</a></li>
+                </ul>
+            </li>
+            <li><a href="technology.html">기술지원</a></li>
+            <li><a href="customer.html">고객지원</a></li>
+            <li><a href="customer.html#online-inquiry">문의하기</a></li>
+        </ul>
+    </nav>
 
     <!-- 메인 배너 -->
     <section class="hero">

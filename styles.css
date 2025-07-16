@@ -30,6 +30,45 @@ body {
     border-bottom: 1px solid rgba(0,0,0,0.06);
 }
 
+/* 모바일에서 헤더 고정 제거 */
+@media (max-width: 768px) {
+    .header {
+        position: relative;
+        top: auto;
+        background: rgba(255, 255, 255, 0.95);
+        box-shadow: 0 1px 0 rgba(0,0,0,0.05);
+        backdrop-filter: blur(10px);
+    }
+    
+    .header-top {
+        padding: 6px 0;
+        font-size: 10px;
+    }
+    
+    .contact-info span {
+        margin-right: 10px;
+        font-size: 10px;
+    }
+    
+    .language-selector a {
+        margin-left: 8px;
+        padding: 3px 6px;
+        font-size: 10px;
+    }
+    
+    .header-main {
+        padding: 12px 0;
+    }
+    
+    .logo h1 {
+        font-size: 1.6rem;
+    }
+    
+    .logo p {
+        font-size: 10px;
+    }
+}
+
 .header-top {
     background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
     color: #fff;
@@ -197,6 +236,113 @@ body {
     background: rgba(30, 64, 175, 0.05);
     color: #1e40af;
     transform: translateX(4px);
+}
+
+/* 모바일 메뉴 토글 버튼 */
+.mobile-menu-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    padding: 8px;
+    background: none;
+    border: none;
+    gap: 4px;
+}
+
+.mobile-menu-toggle span {
+    width: 25px;
+    height: 3px;
+    background: #1e293b;
+    transition: all 0.3s ease;
+    border-radius: 2px;
+}
+
+.mobile-menu-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(6px, 6px);
+}
+
+.mobile-menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.mobile-menu-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* 모바일 네비게이션 */
+.mobile-nav {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(20px);
+    z-index: 2000;
+    padding: 80px 20px 20px;
+    overflow-y: auto;
+}
+
+.mobile-nav.active {
+    display: block;
+}
+
+.mobile-nav ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.mobile-nav li {
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.mobile-nav a {
+    display: block;
+    padding: 20px 0;
+    color: #1e293b;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 18px;
+    transition: all 0.3s ease;
+}
+
+.mobile-nav a:hover {
+    color: #1e40af;
+    padding-left: 10px;
+}
+
+.mobile-nav .dropdown-menu {
+    position: static;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    box-shadow: none;
+    background: rgba(30, 64, 175, 0.05);
+    border-radius: 0;
+    margin-left: 20px;
+    border-left: 3px solid #1e40af;
+}
+
+.mobile-nav .dropdown-menu a {
+    padding: 15px 20px;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+/* 모바일 닫기 버튼 */
+.mobile-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #1e293b;
+    cursor: pointer;
+    padding: 10px;
 }
 
 /* 히어로 섹션 */
